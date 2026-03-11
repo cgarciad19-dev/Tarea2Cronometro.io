@@ -1,10 +1,10 @@
 # ⏱ ChronoRace — Cronómetro de Competidores
 
-Sistema de cronometraje en tiempo real para competencias, construido con HTML, CSS y JavaScript puro.
+Sistema de cronometraje en tiempo real para competencias, construido con HTML, CSS y JavaScript.
 
 ## 🚀 Demo en vivo
-**[Ver aplicación →](https://TU-USUARIO.github.io/chronorace/)**  
-**[Ver diagramas UML →](https://TU-USUARIO.github.io/chronorace/uml-diagrams.html)**
+**[Ver aplicación →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/)**  
+**[Ver diagramas UML →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/uml-diagrams.html)**
 
 ---
 
@@ -30,25 +30,6 @@ Sistema de cronometraje en tiempo real para competencias, construido con HTML, C
 | 4 | Objetos | Instancia concreta del sistema durante una carrera |
 | 5 | Componentes | Arquitectura en capas y módulos |
 | 6 | Actividad | Flujo completo de actividades del sistema |
-
----
-
-## 🌐 Despliegue en GitHub Pages
-
-```bash
-# 1. Crea un repositorio en GitHub (ej: chronorace)
-# 2. Clona el repositorio
-git clone https://github.com/TU-USUARIO/chronorace.git
-
-# 3. Copia los archivos index.html y uml-diagrams.html
-# 4. Commit y push
-git add .
-git commit -m "ChronoRace app + UML diagrams"
-git push origin main
-
-# 5. Ve a Settings → Pages → Branch: main → Save
-# Tu app estará en: https://TU-USUARIO.github.io/chronorace/
-```
 
 ---
 
