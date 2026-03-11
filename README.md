@@ -1,14 +1,14 @@
-# ⏱ Cronómetro de Competidores
+# Cronómetro de Competidores
 
 Sistema de cronometraje en tiempo real para competencias, construido con HTML, CSS y JavaScript.
 
-## 🚀 Demostración
+## Demostración
 **[Ver aplicación →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/)**  
 **[Ver diagramas UML →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/uml-diagrams.html)**
 
 ---
 
-## ✅ Funcionalidades
+## Funcionalidades
 
 - **Cronómetro maestro** con precisión de milisegundos
 - **Agregar / eliminar competidores** en cualquier momento
@@ -20,7 +20,7 @@ Sistema de cronometraje en tiempo real para competencias, construido con HTML, C
 
 ---
 
-## 📐 Diagramas UML
+## Diagramas UML
 
 | # | Diagrama | Descripción |
 |---|----------|-------------|
@@ -33,7 +33,7 @@ Sistema de cronometraje en tiempo real para competencias, construido con HTML, C
 
 ---
 
-## 🛠 Tecnologías
+## Tecnologías
 
 - HTML5 / CSS3 / JavaScript ES6+ (sin dependencias externas)
 - Google Fonts (Orbitron + Rajdhani)
@@ -41,7 +41,7 @@ Sistema de cronometraje en tiempo real para competencias, construido con HTML, C
 
 ---
 
-## 📁 Estructura
+## Estructura
 
 ```
 chronorace/
