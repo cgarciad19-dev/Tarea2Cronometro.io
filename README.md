@@ -2,7 +2,7 @@
 
 Sistema de cronometraje en tiempo real para competencias, construido con HTML, CSS y JavaScript.
 
-## 🚀 Demo en vivo
+## 🚀 Demostración
 **[Ver aplicación →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/)**  
 **[Ver diagramas UML →](https://cgarciad19-dev.github.io/Tarea2Cronometro.io/uml-diagrams.html)**
 
