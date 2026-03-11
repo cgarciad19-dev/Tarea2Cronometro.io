@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChronoRace – Diagramas UML</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #080c10; --panel: #0d1520; --border: #1a2e44;
+      --accent: #00d4ff; --accent2: #ff6b00; --text: #e8f4ff; --muted: #4a7a99;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none; z-index: 0;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px 60px; position: relative; z-index: 1; }
+    header { text-align: center; margin-bottom: 48px; padding-top: 20px; }
+    .logo-text {
+      font-family: 'Orbitron', monospace; font-size: clamp(1.6rem,4vw,2.8rem);
+      font-weight: 900; letter-spacing: 4px;
+      background: linear-gradient(135deg, var(--accent), #fff, var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));
+    }
+    .logo-sub { font-size: 0.85rem; letter-spacing: 5px; color: var(--muted); margin-top: 6px; text-transform: uppercase; }
+    .nav {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+      margin-bottom: 48px;
+    }
+    .nav-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--muted); font-family: 'Orbitron', monospace;
+      font-size: 0.65rem; letter-spacing: 2px; padding: 10px 18px;
+      border-radius: 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      border-color: var(--accent); color: var(--accent);
+      box-shadow: 0 0 12px rgba(0,212,255,0.2);
+    }
+    .diagram-section {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px; margin-bottom: 40px;
+      display: none; position: relative; overflow: hidden;
+    }
+    .diagram-section.active { display: block; }
+    .diagram-section::after {
+      content: ''; position: absolute; top: -1px; left: 10%; right: 10%;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .diag-title {
+      font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700;
+      color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 8px; display: flex; align-items: center; gap: 12px;
+    }
+    .diag-num {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000; width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 900; flex-shrink: 0;
+    }
+    .diag-desc {
+      color: var(--muted); font-size: 0.95rem; line-height: 1.6;
+      margin-bottom: 28px; padding-left: 44px;
+    }
+    .mermaid-wrap {
+      background: #fff; border-radius: 10px; padding: 24px;
+      overflow-x: auto; display: flex; justify-content: center;
+    }
+    .mermaid { min-width: 300px; }
+    .show-all-btn {
+      display: block; margin: 0 auto 40px;
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000; font-family: 'Orbitron', monospace;
+      font-size: 0.75rem; letter-spacing: 2px; padding: 14px 28px;
+      border: none; border-radius: 8px; cursor: pointer;
+      text-transform: uppercase; box-shadow: 0 0 16px rgba(0,212,255,0.3);
+      transition: all 0.2s;
+    }
+    .show-all-btn:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo-text">⏱ CHRONORACE — UML</div>
+    <div class="logo-sub">Diagramas de Diseño del Sistema</div>
+  </header>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="show('uc')">1. Casos de Uso</button>
+    <button class="nav-btn" onclick="show('cls')">2. Clases</button>
+    <button class="nav-btn" onclick="show('seq')">3. Secuencia</button>
+    <button class="nav-btn" onclick="show('obj')">4. Objetos</button>
+    <button class="nav-btn" onclick="show('cmp')">5. Componentes</button>
+    <button class="nav-btn" onclick="show('act')">6. Actividad</button>
+    <button class="nav-btn" onclick="showAll()">Ver Todo</button>
+  </div>
+
+  <!-- 1. CASOS DE USO -->
+  <div class="diagram-section active" id="sec-uc">
+    <div class="diag-title"><div class="diag-num">1</div>Diagrama de Casos de Uso</div>
+    <div class="diag-desc">
+      Muestra los actores del sistema (Juez/Operador) y todas las interacciones posibles con la aplicación ChronoRace. Identifica las funcionalidades principales disponibles para el usuario.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default', 'themeVariables': {'primaryColor': '#e8f4ff', 'primaryTextColor': '#080c10', 'primaryBorderColor': '#1a2e44', 'lineColor': '#0099cc', 'secondaryColor': '#f0f8ff', 'tertiaryColor': '#fff'}}}%%
+flowchart LR
+    actor1(["👤 Juez / Operador"])
+
+    subgraph SYS["🏁 ChronoRace — Sistema de Cronometraje"]
+        direction TB
+        UC1(["Iniciar Carrera"])
+        UC2(["Detener Carrera"])
+        UC3(["Reiniciar Cronómetro"])
+        UC4(["Agregar Competidor"])
+        UC5(["Capturar Tiempo\nde Competidor"])
+        UC6(["Eliminar Competidor"])
+        UC7(["Ver Clasificación\nen Tiempo Real"])
+        UC8(["Ver Diferencia\nvs Líder"])
+        UC9(["Ver Estadísticas\nde Carrera"])
+    end
+
+    actor1 --> UC1
+    actor1 --> UC2
+    actor1 --> UC3
+    actor1 --> UC4
+    actor1 --> UC5
+    actor1 --> UC6
+    actor1 --> UC7
+    actor1 --> UC8
+    actor1 --> UC9
+
+    UC5 -.->|include| UC7
+    UC7 -.->|include| UC8
+    UC1 -.->|extend| UC5
+
+    style SYS fill:#f0f8ff,stroke:#0099cc,stroke-width:2px
+    style actor1 fill:#e8f4ff,stroke:#0077aa,stroke-width:2px
+    style UC1 fill:#d4edda,stroke:#28a745
+    style UC2 fill:#f8d7da,stroke:#dc3545
+    style UC3 fill:#fff3cd,stroke:#ffc107
+    style UC5 fill:#cce5ff,stroke:#0055aa,stroke-width:2px
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CLASES -->
+  <div class="diagram-section" id="sec-cls">
+    <div class="diag-title"><div class="diag-num">2</div>Diagrama de Clases</div>
+    <div class="diag-desc">
+      Define la estructura estática del sistema: clases, atributos, métodos y relaciones de asociación, composición y dependencia entre los objetos del dominio.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default'}}%%
+classDiagram
+    class ChronoRaceApp {
+        -competitors : Competitor[]
+        -nextId : number
+        +startRace() void
+        +stopRace() void
+        +resetRace() void
+        +addCompetitor(name: string) void
+        +removeCompetitor(id: number) void
+        +renderList() void
+        +updateStats() void
+    }
+
+    class MasterClock {
+        -startTimestamp : number
+        -elapsed : number
+        -interval : IntervalID
+        -isRunning : boolean
+        +start() void
+        +stop() void
+        +reset() void
+        +getElapsed() number
+        +formatTime(ms: number) string
+    }
+
+    class Competitor {
+        -id : number
+        -name : string
+        -capturedTime : number
+        -finished : boolean
+        +capture(time: number) void
+        +reset() void
+        +isFinished() boolean
+        +getCapturedTime() number
+    }
+
+    class Leaderboard {
+        -competitors : Competitor[]
+        +getSorted() Competitor[]
+        +getLeaderTime() number
+        +getDiff(c: Competitor) number
+        +getRank(c: Competitor) number
+    }
+
+    class UIRenderer {
+        +renderCompetitorCard(c: Competitor, rank: number) string
+        +renderEmptyState() string
+        +flashCard(id: number) void
+        +showToast(message: string) void
+    }
+
+    class StatsPanel {
+        -leaderEl : HTMLElement
+        -countEl : HTMLElement
+        -finishedEl : HTMLElement
+        -runningEl : HTMLElement
+        +update(competitors: Competitor[]) void
+        +getLeaderName() string
+    }
+
+    class TimeFormatter {
+        +format(ms: number) string
+        +formatDiff(ms: number) string
+    }
+
+    ChronoRaceApp "1" *-- "1" MasterClock : compone
+    ChronoRaceApp "1" *-- "*" Competitor : gestiona
+    ChronoRaceApp "1" *-- "1" Leaderboard : utiliza
+    ChronoRaceApp "1" *-- "1" UIRenderer : delega render
+    ChronoRaceApp "1" *-- "1" StatsPanel : actualiza
+    Leaderboard "1" o-- "*" Competitor : ordena
+    UIRenderer ..> TimeFormatter : usa
+    Leaderboard ..> TimeFormatter : usa
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SECUENCIA -->
+  <div class="diagram-section" id="sec-seq">
+    <div class="diag-title"><div class="diag-num">3</div>Diagrama de Secuencia</div>
+    <div class="diag-desc">
+      Ilustra el flujo temporal de mensajes entre el Operador, la interfaz de usuario y los componentes internos durante el ciclo completo de una carrera: inicio, captura de tiempo y finalización.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default'}}%%
+sequenceDiagram
+    actor Operador
+    participant UI as Interfaz UI
+    participant App as ChronoRaceApp
+    participant Clock as MasterClock
+    participant Comp as Competitor
+    participant Board as Leaderboard
+    participant Stats as StatsPanel
+
+    Operador->>UI: Agrega competidor "Ana"
+    UI->>App: addCompetitor("Ana")
+    App->>Comp: new Competitor(id, "Ana")
+    App->>Board: actualizar lista
+    App->>Stats: update(competitors)
+    App->>UI: renderList() + showToast()
+
+    Operador->>UI: Click "INICIAR"
+    UI->>App: startRace()
+    App->>Clock: start()
+    Clock-->>App: interval activo (cada 10ms)
+    App->>UI: actualizar display master
+    App->>UI: habilitar botón CAPTURAR
+
+    loop Cada 50ms (liveInterval)
+        Clock-->>App: getElapsed()
+        App->>UI: actualizar tiempo en vivo de competidores
+    end
+
+    Operador->>UI: Click "🏁 CAP" para Ana
+    UI->>App: captureCompetitor(id)
+    App->>Clock: getElapsed()
+    Clock-->>App: tiempo actual (ms)
+    App->>Comp: capture(elapsedTime)
+    Comp-->>App: finished = true
+    App->>Board: getSorted()
+    Board-->>App: lista ordenada con diferencias
+    App->>Stats: update()
+    App->>UI: renderList() + flashCard() + showToast()
+
+    Operador->>UI: Click "⏹ DETENER"
+    UI->>App: stopRace()
+    App->>Clock: stop()
+    App->>UI: deshabilitar controles
+    App->>Board: getLeaderTime()
+    Board-->>App: menor tiempo registrado
+    App->>UI: renderList() con clasificación final
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. OBJETOS -->
+  <div class="diagram-section" id="sec-obj">
+    <div class="diag-title"><div class="diag-num">4</div>Diagrama de Objetos</div>
+    <div class="diag-desc">
+      Muestra una instantánea del sistema con valores concretos en un momento específico de la carrera: 3 competidores registrados, 2 finalizados y uno aún en pista.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default'}}%%
+classDiagram
+    class `app : ChronoRaceApp` {
+        competitors = [c1, c2, c3]
+        nextId = 4
+    }
+
+    class `clock : MasterClock` {
+        elapsed = 185420
+        isRunning = true
+        startTimestamp = 1700000000000
+    }
+
+    class `c1 : Competitor` {
+        id = 1
+        name = "Ana García"
+        capturedTime = 62340
+        finished = true
+    }
+
+    class `c2 : Competitor` {
+        id = 2
+        name = "Luis Pérez"
+        capturedTime = 68120
+        finished = true
+    }
+
+    class `c3 : Competitor` {
+        id = 3
+        name = "María López"
+        capturedTime = null
+        finished = false
+    }
+
+    class `board : Leaderboard` {
+        sorted = [c1, c2, c3]
+        leaderTime = 62340
+    }
+
+    class `stats : StatsPanel` {
+        leaderName = "Ana García"
+        count = 3
+        finished = 2
+        running = 1
+    }
+
+    `app : ChronoRaceApp` --> `clock : MasterClock`
+    `app : ChronoRaceApp` --> `c1 : Competitor`
+    `app : ChronoRaceApp` --> `c2 : Competitor`
+    `app : ChronoRaceApp` --> `c3 : Competitor`
+    `app : ChronoRaceApp` --> `board : Leaderboard`
+    `app : ChronoRaceApp` --> `stats : StatsPanel`
+    `board : Leaderboard` --> `c1 : Competitor`
+    `board : Leaderboard` --> `c2 : Competitor`
+    `board : Leaderboard` --> `c3 : Competitor`
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. COMPONENTES -->
+  <div class="diagram-section" id="sec-cmp">
+    <div class="diag-title"><div class="diag-num">5</div>Diagrama de Componentes</div>
+    <div class="diag-desc">
+      Representa la arquitectura física de la aplicación: módulos, su organización en capas (presentación, lógica, datos) y las interfaces de comunicación entre ellos.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default'}}%%
+graph TB
+    subgraph BROWSER["🌐 Navegador Web (Cliente)"]
+        direction TB
+
+        subgraph PRESENTATION["📱 Capa de Presentación (HTML/CSS)"]
+            HTML["index.html\n─────────────\n• Estructura DOM\n• Layout principal"]
+            CSS["Estilos Embebidos\n─────────────\n• Variables CSS\n• Animaciones\n• Responsive"]
+        end
+
+        subgraph LOGIC["⚙️ Capa de Lógica (JavaScript)"]
+            direction LR
+            CLOCK["MasterClock\n─────────\nsetInterval()\nDate.now()"]
+            COMPLIST["CompetitorManager\n─────────\naddCompetitor()\ncaptureTime()\nremoveCompetitor()"]
+            SORTER["Leaderboard\n─────────\ngetSorted()\ngetLeaderTime()\ngetDiff()"]
+        end
+
+        subgraph RENDER["🎨 Capa de Renderizado (DOM API)"]
+            RENDERER["UIRenderer\n─────────\nrenderList()\nflashCard()\nshowToast()"]
+            STATS["StatsPanel\n─────────\nupdateStats()\nrenderStats()"]
+            FORMAT["TimeFormatter\n─────────\nformat(ms)\nformatDiff(ms)"]
+        end
+
+        subgraph DATA["💾 Estado en Memoria"]
+            STATE["AppState\n─────────\ncompetitors[]\nmasterElapsed\nraceRunning"]
+        end
+    end
+
+    subgraph EXTERNAL["☁️ Recursos Externos"]
+        GFONTS["Google Fonts\nOrbitron + Rajdhani"]
+        GITHUB["GitHub Pages\nHosting Estático"]
+    end
+
+    HTML --> CSS
+    HTML --> LOGIC
+    CLOCK --> COMPLIST
+    COMPLIST --> SORTER
+    SORTER --> RENDERER
+    CLOCK --> RENDERER
+    RENDERER --> STATS
+    FORMAT --> RENDERER
+    FORMAT --> SORTER
+    LOGIC --> STATE
+    RENDERER --> STATE
+    HTML --> GFONTS
+    BROWSER --> GITHUB
+
+    style PRESENTATION fill:#e8f4ff,stroke:#0099cc
+    style LOGIC fill:#fff3cd,stroke:#ffc107
+    style RENDER fill:#d4edda,stroke:#28a745
+    style DATA fill:#f8d7da,stroke:#dc3545
+    style EXTERNAL fill:#e2e3e5,stroke:#6c757d
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. ACTIVIDAD -->
+  <div class="diagram-section" id="sec-act">
+    <div class="diag-title"><div class="diag-num">6</div>Diagrama de Actividad</div>
+    <div class="diag-desc">
+      Describe el flujo completo de actividades desde que el operador abre la aplicación hasta que todos los competidores finalizan y se muestra la clasificación final.
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+%%{init: {'theme': 'default'}}%%
+flowchart TD
+    A(["🟢 INICIO"])
+    B["Abrir ChronoRace\nen Navegador"]
+    C["Agregar nombre\nde competidor"]
+    D{¿Nombre\nválido?}
+    E["Mostrar error\n'Ingresa un nombre'"]
+    F["Crear objeto\nCompetitor"]
+    G["Actualizar lista\ny estadísticas"]
+    H{¿Más\ncompetidores?}
+    I["Click INICIAR\nCarrera"]
+    J["MasterClock.start()\ninterval 10ms activo"]
+    K["Mostrar tiempo\nen tiempo real"]
+    L{¿Competidor\nllega a meta?}
+    M["Click 🏁 CAP\ndel competidor"]
+    N["Capturar elapsed\ntime = MasterClock.getElapsed()"]
+    O["Competitor.capture(time)\nfinished = true"]
+    P["Recalcular\nLeaderboard.getSorted()"]
+    Q["Calcular diferencias\nvs tiempo líder"]
+    R["Actualizar UI:\nclasificación + flash"]
+    S{¿Todos\nfinalizaron?}
+    T["Click DETENER\nCarrera"]
+    U["MasterClock.stop()\nclear intervals"]
+    V["Mostrar clasificación\nfinal completa"]
+    W["¿Reiniciar?"]
+    X["resetRace()\nCompetitor.reset() x todos"]
+    Z(["🔴 FIN"])
+
+    A --> B --> C --> D
+    D -- No --> E --> C
+    D -- Sí --> F --> G --> H
+    H -- Sí --> C
+    H -- No --> I --> J --> K
+    K --> L
+    L -- No --> K
+    L -- Sí --> M --> N --> O --> P --> Q --> R --> S
+    S -- No --> K
+    S -- Sí --> T --> U --> V --> W
+    W -- Sí --> X --> B
+    W -- No --> Z
+
+    style A fill:#00b347,color:#fff,stroke:none
+    style Z fill:#cc2200,color:#fff,stroke:none
+    style D fill:#fff3cd,stroke:#ffc107
+    style S fill:#fff3cd,stroke:#ffc107
+    style H fill:#fff3cd,stroke:#ffc107
+    style W fill:#fff3cd,stroke:#ffc107
+    style E fill:#f8d7da,stroke:#dc3545
+    style F fill:#d4edda,stroke:#28a745
+    style O fill:#cce5ff,stroke:#0055aa
+    style V fill:#d4edda,stroke:#28a745,stroke-width:2px
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    securityLevel: 'loose',
+    fontFamily: 'Rajdhani, sans-serif',
+  });
+
+  const sections = ['uc','cls','seq','obj','cmp','act'];
+  let allVisible = false;
+
+  function show(id) {
+    allVisible = false;
+    sections.forEach(s => {
+      document.getElementById('sec-'+s).classList.remove('active');
+    });
+    document.getElementById('sec-'+id).classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach((b,i) => {
+      b.classList.toggle('active', b.textContent.toLowerCase().includes(id) || 
+        (id==='uc' && b.textContent.includes('Uso')) ||
+        (id==='cls' && b.textContent.includes('Clase')) ||
+        (id==='seq' && b.textContent.includes('Secuencia')) ||
+        (id==='obj' && b.textContent.includes('Objeto')) ||
+        (id==='cmp' && b.textContent.includes('Componente')) ||
+        (id==='act' && b.textContent.includes('Actividad'))
+      );
+    });
+  }
+
+  function showAll() {
+    sections.forEach(s => {
+      document.getElementById('sec-'+s).classList.add('active');
+    });
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-btn')[6] && document.querySelectorAll('.nav-btn')[6].classList.add('active');
+  }
+</script>
+</body>
+</html>
