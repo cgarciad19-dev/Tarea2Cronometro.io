@@ -1,4 +1,4 @@
-# ⏱ ChronoRace — Cronómetro de Competidores
+# ⏱ Cronómetro de Competidores
 
 Sistema de cronometraje en tiempo real para competencias, construido con HTML, CSS y JavaScript.
 
