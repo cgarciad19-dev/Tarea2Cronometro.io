@@ -3,51 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChronoRace – Cronómetro de Competidores</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <title>Cronómetro de Competidores</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg: #080c10;
-      --panel: #0d1520;
-      --border: #1a2e44;
-      --accent: #00d4ff;
-      --accent2: #ff6b00;
-      --gold: #ffd700;
-      --silver: #c0c0c0;
-      --bronze: #cd7f32;
-      --text: #e8f4ff;
-      --muted: #4a7a99;
-      --danger: #ff3b3b;
-      --success: #00ff88;
-      --glow: 0 0 20px rgba(0,212,255,0.4);
-      --glow2: 0 0 20px rgba(255,107,0,0.4);
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Rajdhani', sans-serif;
+      background: #f0f4f8;
+      font-family: 'Poppins', sans-serif;
+      color: #2d3748;
       min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* GRID BACKGROUND */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     .container {
-      position: relative; z-index: 1;
-      max-width: 1100px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 24px 16px 60px;
     }
@@ -55,759 +24,527 @@
     /* HEADER */
     header {
       text-align: center;
-      margin-bottom: 40px;
-      padding-top: 20px;
-    }
-    .logo-text {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 900;
-      letter-spacing: 4px;
-      background: linear-gradient(135deg, var(--accent), #fff, var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: none;
-      filter: drop-shadow(0 0 30px rgba(0,212,255,0.5));
-    }
-    .logo-sub {
-      font-size: 0.95rem;
-      letter-spacing: 6px;
-      color: var(--muted);
-      margin-top: 6px;
-      text-transform: uppercase;
-    }
-
-    /* MAIN TIMER */
-    .master-clock {
-      background: linear-gradient(135deg, #0a1928, #081420);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      text-align: center;
-      margin-bottom: 32px;
-      box-shadow: inset 0 0 60px rgba(0,212,255,0.05), 0 0 40px rgba(0,0,0,0.6);
-      position: relative;
-      overflow: hidden;
-    }
-    .master-clock::after {
-      content: '';
-      position: absolute;
-      top: -1px; left: 10%; right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    }
-    .time-display {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(3rem, 10vw, 6rem);
-      font-weight: 700;
-      color: var(--accent);
-      text-shadow: 0 0 40px rgba(0,212,255,0.8), 0 0 80px rgba(0,212,255,0.3);
-      letter-spacing: 4px;
-      line-height: 1;
-      margin-bottom: 8px;
-      transition: color 0.3s;
-    }
-    .time-display.running { animation: pulse 1s ease-in-out infinite; }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.85; }
-    }
-    .status-label {
-      font-size: 0.85rem;
-      letter-spacing: 4px;
-      color: var(--muted);
-      text-transform: uppercase;
       margin-bottom: 28px;
     }
-    .status-label.active { color: var(--success); }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2b6cb0;
+    }
+    header p {
+      font-size: 0.9rem;
+      color: #718096;
+      margin-top: 4px;
+    }
 
-    /* CONTROLS */
+    /* CARD */
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #718096;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    /* TIMER DISPLAY */
+    .time-display {
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
+      font-weight: 700;
+      text-align: center;
+      color: #2b6cb0;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .status-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a0aec0;
+      margin-bottom: 20px;
+    }
+    .status-label.running { color: #38a169; font-weight: 600; }
+
+    /* BUTTONS */
     .controls {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-    .btn {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      padding: 14px 28px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-transform: uppercase;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .btn:hover::before { opacity: 1; }
-    .btn:active { transform: scale(0.96); }
-
-    .btn-start {
-      background: linear-gradient(135deg, #00b347, #00d455);
-      color: #000;
-      box-shadow: 0 0 20px rgba(0,212,85,0.4);
-    }
-    .btn-stop {
-      background: linear-gradient(135deg, #cc2200, #ff3b1a);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(255,59,26,0.4);
-    }
-    .btn-reset {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    .btn-reset:hover { color: var(--text); border-color: var(--muted); }
-    .btn-lap {
-      background: linear-gradient(135deg, #0055aa, #0077ff);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(0,119,255,0.3);
-    }
-    .btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    /* ADD COMPETITOR */
-    .add-section {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-    }
-    .section-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 3px;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
-    }
-    .input-row {
-      display: flex;
       gap: 12px;
       flex-wrap: wrap;
     }
-    .name-input {
-      flex: 1;
-      min-width: 200px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .name-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 12px rgba(0,212,255,0.2);
-    }
-    .name-input::placeholder { color: var(--muted); }
-    .btn-add {
-      background: linear-gradient(135deg, var(--accent), #0099cc);
-      color: #000;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      padding: 12px 24px;
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 10px 22px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
-      text-transform: uppercase;
-      box-shadow: 0 0 16px rgba(0,212,255,0.3);
+      transition: opacity 0.15s, transform 0.1s;
     }
-    .btn-add:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,212,255,0.4); }
-    .btn-add:active { transform: translateY(0); }
+    button:hover { opacity: 0.88; }
+    button:active { transform: scale(0.97); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-    /* LEADERBOARD */
-    .leaderboard {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      margin-bottom: 32px;
-    }
-    .leaderboard-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
+    .btn-start  { background: #38a169; color: #fff; }
+    .btn-stop   { background: #e53e3e; color: #fff; }
+    .btn-reset  { background: #e2e8f0; color: #4a5568; }
+
+    /* ADD COMPETITOR */
+    .input-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      gap: 10px;
     }
+    .name-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      color: #2d3748;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .name-input:focus { border-color: #4299e1; }
+    .name-input::placeholder { color: #a0aec0; }
+    .btn-add { background: #4299e1; color: #fff; white-space: nowrap; }
+
+    /* STATS ROW */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2b6cb0;
+    }
+    .stat-lbl {
+      font-size: 0.7rem;
+      color: #a0aec0;
+      margin-top: 2px;
+    }
+
+    /* COMPETITOR LIST */
     .empty-state {
       text-align: center;
-      padding: 60px 24px;
-      color: var(--muted);
+      padding: 40px 0;
+      color: #a0aec0;
+      font-size: 0.95rem;
     }
-    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
-    .empty-state p { font-size: 0.95rem; letter-spacing: 1px; }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
 
-    /* COMPETITOR CARDS */
-    .competitor-list { padding: 8px; }
     .competitor-card {
-      display: grid;
-      grid-template-columns: 48px 1fr auto auto auto;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      border-radius: 10px;
-      margin-bottom: 6px;
-      border: 1px solid transparent;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .competitor-card:hover { background: rgba(0,212,255,0.04); border-color: var(--border); }
-    .competitor-card.rank-1 {
-      background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.02));
-      border-color: rgba(255,215,0,0.25);
-    }
-    .competitor-card.rank-2 {
-      background: linear-gradient(135deg, rgba(192,192,192,0.06), rgba(192,192,192,0.01));
-      border-color: rgba(192,192,192,0.2);
-    }
-    .competitor-card.rank-3 {
-      background: linear-gradient(135deg, rgba(205,127,50,0.06), rgba(205,127,50,0.01));
-      border-color: rgba(205,127,50,0.2);
-    }
-    .competitor-card.finished::after {
-      content: '✓ FINALIZADO';
-      position: absolute;
-      top: 50%; right: 12px;
-      transform: translateY(-50%);
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      color: var(--success);
-      opacity: 0.6;
-      font-family: 'Orbitron', monospace;
-    }
-
-    .rank-badge {
-      width: 40px; height: 40px;
-      border-radius: 50%;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1rem;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      color: var(--muted);
-      flex-shrink: 0;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 10px;
+      background: #fff;
+      transition: border-color 0.2s;
     }
-    .rank-badge.gold { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 12px rgba(255,215,0,0.3); }
-    .rank-badge.silver { border-color: var(--silver); color: var(--silver); }
-    .rank-badge.bronze { border-color: var(--bronze); color: var(--bronze); }
+    .competitor-card.rank-1 { border-left: 4px solid #f6c90e; }
+    .competitor-card.rank-2 { border-left: 4px solid #a0aec0; }
+    .competitor-card.rank-3 { border-left: 4px solid #c47a3a; }
 
-    .competitor-info { min-width: 0; }
-    .competitor-name {
-      font-size: 1.1rem;
+    .rank-badge {
+      font-size: 1.4rem;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .comp-info { flex: 1; min-width: 0; }
+    .comp-name {
       font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 0.95rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .competitor-status {
+    .comp-status {
       font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 1px;
-      margin-top: 2px;
+      color: #a0aec0;
+      margin-top: 1px;
     }
-    .competitor-status.running-status { color: var(--accent); }
+    .comp-status.running { color: #38a169; }
 
-    .competitor-time {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.1rem;
+    .comp-time {
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--text);
+      color: #2d3748;
       text-align: right;
-      min-width: 110px;
+      min-width: 100px;
     }
-    .competitor-time.running-time { color: var(--accent); }
-    .competitor-time.best-time { color: var(--gold); }
+    .comp-time.best { color: #d69e2e; }
+    .comp-time.live { color: #3182ce; }
 
-    .competitor-diff {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
-      color: var(--danger);
+    .comp-diff {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e53e3e;
+      min-width: 70px;
       text-align: right;
-      min-width: 80px;
     }
-    .competitor-diff.leader { color: var(--success); }
+    .comp-diff.leader { color: #38a169; }
 
-    .card-actions {
-      display: flex;
-      gap: 8px;
-      flex-shrink: 0;
-    }
+    .card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
     .btn-capture {
-      background: linear-gradient(135deg, var(--accent2), #ff8800);
-      color: #000;
+      background: #ed8936;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 12px;
       border: none;
       border-radius: 6px;
-      padding: 8px 14px;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 1px;
       cursor: pointer;
-      transition: all 0.2s;
-      text-transform: uppercase;
-      box-shadow: 0 0 10px rgba(255,107,0,0.3);
+      transition: opacity 0.15s;
+      white-space: nowrap;
     }
-    .btn-capture:hover { transform: translateY(-1px); }
-    .btn-capture:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
-    .btn-remove {
-      background: transparent;
-      border: 1px solid rgba(255,59,59,0.3);
-      color: rgba(255,59,59,0.6);
-      border-radius: 6px;
-      padding: 8px 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-    }
-    .btn-remove:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,59,59,0.08); }
+    .btn-capture:hover { opacity: 0.85; }
+    .btn-capture:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    /* STATS BAR */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
+    .btn-remove {
+      background: #fed7d7;
+      color: #c53030;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s;
     }
-    .stat-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+    .btn-remove:hover { background: #fc8181; color: #fff; }
+
+    /* FLASH */
+    @keyframes flash {
+      0%, 100% { background: #fff; }
+      50% { background: #c6f6d5; }
     }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-    }
-    .stat-card:nth-child(1)::before { background: var(--gold); }
-    .stat-card:nth-child(2)::before { background: var(--accent); }
-    .stat-card:nth-child(3)::before { background: var(--accent2); }
-    .stat-card:nth-child(4)::before { background: var(--success); }
-    .stat-value {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+    .competitor-card.flash { animation: flash 0.5s ease; }
 
     /* TOAST */
     .toast {
       position: fixed;
-      bottom: 30px; left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: var(--panel);
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      padding: 14px 24px;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      color: var(--accent);
-      box-shadow: 0 0 30px rgba(0,212,255,0.3);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 100;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #2d3748;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 99;
       white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* FLASH ANIMATION */
-    @keyframes flash-green {
-      0%, 100% { background: transparent; }
-      50% { background: rgba(0,255,136,0.1); }
-    }
-    .competitor-card.flash { animation: flash-green 0.5s ease; }
-
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .competitor-card {
-        grid-template-columns: 40px 1fr auto;
-        grid-template-rows: auto auto;
-      }
-      .competitor-time { font-size: 0.9rem; min-width: 90px; }
-      .competitor-diff { display: none; }
-      .card-actions { grid-column: 1 / -1; justify-content: flex-end; }
+    @media (max-width: 500px) {
+      .comp-diff { display: none; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="logo-text">⏱ CHRONORACE</div>
-      <div class="logo-sub">Sistema de Cronometraje de Competidores</div>
-    </header>
+<div class="container">
 
-    <!-- STATS BAR -->
-    <div class="stats-bar">
-      <div class="stat-card">
-        <div class="stat-value" id="stat-leader" style="color:var(--gold)">—</div>
-        <div class="stat-label">Líder</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="stat-count" style="color:var(--accent)">0</div>
-        <div class="stat-label">Competidores</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="stat-finished" style="color:var(--accent2)">0</div>
-        <div class="stat-label">Finalizados</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-value" id="stat-running" style="color:var(--success)">0</div>
-        <div class="stat-label">En Carrera</div>
-      </div>
+  <header>
+    <h1>⏱ Cronómetro de Competidores</h1>
+    <p>Captura tiempos y compara con el líder</p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val" id="stat-leader">—</div>
+      <div class="stat-lbl">Líder</div>
     </div>
-
-    <!-- MASTER CLOCK -->
-    <div class="master-clock">
-      <div class="time-display" id="master-display">00:00.000</div>
-      <div class="status-label" id="status-label">LISTO PARA INICIAR</div>
-      <div class="controls">
-        <button class="btn btn-start" id="btn-start" onclick="startRace()">▶ INICIAR</button>
-        <button class="btn btn-stop" id="btn-stop" onclick="stopRace()" disabled>⏹ DETENER</button>
-        <button class="btn btn-reset" id="btn-reset" onclick="resetRace()">↺ RESET</button>
-      </div>
+    <div class="stat-box">
+      <div class="stat-val" id="stat-count">0</div>
+      <div class="stat-lbl">Total</div>
     </div>
-
-    <!-- ADD COMPETITOR -->
-    <div class="add-section">
-      <div class="section-title">➕ Agregar Competidor</div>
-      <div class="input-row">
-        <input type="text" class="name-input" id="competitor-name" placeholder="Nombre del competidor..." maxlength="30" onkeydown="if(event.key==='Enter')addCompetitor()"/>
-        <button class="btn-add" onclick="addCompetitor()">+ Agregar</button>
-      </div>
+    <div class="stat-box">
+      <div class="stat-val" id="stat-finished">0</div>
+      <div class="stat-lbl">Finalizados</div>
     </div>
+    <div class="stat-box">
+      <div class="stat-val" id="stat-running">0</div>
+      <div class="stat-lbl">En carrera</div>
+    </div>
+  </div>
 
-    <!-- LEADERBOARD -->
-    <div class="leaderboard">
-      <div class="leaderboard-header">
-        <div class="section-title" style="margin:0">🏆 Clasificación</div>
-        <span style="font-size:0.75rem;color:var(--muted);letter-spacing:1px">TIEMPO REAL</span>
-      </div>
-      <div id="competitor-list">
-        <div class="empty-state">
-          <div class="icon">🏁</div>
-          <p>Agrega competidores para comenzar la carrera</p>
-        </div>
+  <!-- TIMER -->
+  <div class="card">
+    <div class="card-title">Cronómetro principal</div>
+    <div class="time-display" id="master-display">00:00.000</div>
+    <div class="status-label" id="status-label">Listo para iniciar</div>
+    <div class="controls">
+      <button class="btn-start" id="btn-start" onclick="startRace()">▶ Iniciar</button>
+      <button class="btn-stop"  id="btn-stop"  onclick="stopRace()"  disabled>⏹ Detener</button>
+      <button class="btn-reset"                onclick="resetRace()">↺ Reiniciar</button>
+    </div>
+  </div>
+
+  <!-- ADD COMPETITOR -->
+  <div class="card">
+    <div class="card-title">Agregar competidor</div>
+    <div class="input-row">
+      <input type="text" class="name-input" id="competitor-name"
+        placeholder="Nombre del competidor..."
+        maxlength="30"
+        onkeydown="if(event.key==='Enter') addCompetitor()"/>
+      <button class="btn-add" onclick="addCompetitor()">+ Agregar</button>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="card">
+    <div class="card-title">🏆 Clasificación</div>
+    <div id="competitor-list">
+      <div class="empty-state">
+        <div class="icon">🏁</div>
+        <p>Agrega competidores para comenzar</p>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+</div>
 
-  <script>
-    // ═══════════════════════════════════════════════════
-    //   CHRONORACE — CORE ENGINE
-    // ═══════════════════════════════════════════════════
+<div class="toast" id="toast"></div>
 
-    let masterStart = null;
-    let masterElapsed = 0;
-    let masterInterval = null;
-    let raceRunning = false;
-    let competitors = [];
-    let nextId = 1;
-    let liveInterval = null;
+<script>
+  let masterStart = null;
+  let masterElapsed = 0;
+  let masterInterval = null;
+  let liveInterval = null;
+  let raceRunning = false;
+  let competitors = [];
+  let nextId = 1;
 
-    // ── TIME FORMATTER ──────────────────────────────────
-    function formatTime(ms) {
-      if (ms < 0) ms = 0;
-      const minutes = Math.floor(ms / 60000);
-      const seconds = Math.floor((ms % 60000) / 1000);
-      const millis  = ms % 1000;
-      return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(millis).padStart(3,'0')}`;
-    }
+  function formatTime(ms) {
+    if (ms < 0) ms = 0;
+    const m = Math.floor(ms / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    const ms3 = ms % 1000;
+    return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(ms3).padStart(3,'0')}`;
+  }
 
-    function formatDiff(ms) {
-      if (ms <= 0) return '+00:00.000';
-      const minutes = Math.floor(ms / 60000);
-      const seconds = Math.floor((ms % 60000) / 1000);
-      const millis  = ms % 1000;
-      return `+${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${String(millis).padStart(3,'0')}`;
-    }
+  function formatDiff(ms) {
+    if (ms <= 0) return '+00:00.000';
+    const m = Math.floor(ms / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    const ms3 = ms % 1000;
+    return `+${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(ms3).padStart(3,'0')}`;
+  }
 
-    // ── RACE CONTROL ────────────────────────────────────
-    function startRace() {
-      if (raceRunning) return;
-      masterStart = Date.now() - masterElapsed;
-      raceRunning = true;
+  function startRace() {
+    if (raceRunning) return;
+    masterStart = Date.now() - masterElapsed;
+    raceRunning = true;
+    masterInterval = setInterval(() => {
+      masterElapsed = Date.now() - masterStart;
+      document.getElementById('master-display').textContent = formatTime(masterElapsed);
+    }, 10);
+    liveInterval = setInterval(updateLiveCards, 50);
+    const lbl = document.getElementById('status-label');
+    lbl.textContent = 'Carrera en progreso...';
+    lbl.classList.add('running');
+    document.getElementById('btn-start').disabled = true;
+    document.getElementById('btn-stop').disabled = false;
+    showToast('¡Carrera iniciada!');
+    renderList();
+  }
 
-      masterInterval = setInterval(() => {
-        masterElapsed = Date.now() - masterStart;
-        document.getElementById('master-display').textContent = formatTime(masterElapsed);
-      }, 10);
+  function stopRace() {
+    if (!raceRunning) return;
+    raceRunning = false;
+    clearInterval(masterInterval);
+    clearInterval(liveInterval);
+    const lbl = document.getElementById('status-label');
+    lbl.textContent = 'Carrera detenida';
+    lbl.classList.remove('running');
+    document.getElementById('btn-start').disabled = false;
+    document.getElementById('btn-stop').disabled = true;
+    showToast('Carrera detenida');
+    renderList();
+  }
 
-      liveInterval = setInterval(updateLiveCards, 50);
-
-      document.getElementById('master-display').classList.add('running');
-      document.getElementById('status-label').textContent = 'CARRERA EN PROGRESO';
-      document.getElementById('status-label').classList.add('active');
-      document.getElementById('btn-start').disabled = true;
-      document.getElementById('btn-stop').disabled = false;
-
-      showToast('¡CARRERA INICIADA!');
-      renderList();
-    }
-
-    function stopRace() {
-      if (!raceRunning) return;
-      raceRunning = false;
-      clearInterval(masterInterval);
-      clearInterval(liveInterval);
-
-      document.getElementById('master-display').classList.remove('running');
-      document.getElementById('status-label').textContent = 'CARRERA DETENIDA';
-      document.getElementById('status-label').classList.remove('active');
-      document.getElementById('btn-start').disabled = false;
-      document.getElementById('btn-stop').disabled = true;
-
-      showToast('CARRERA DETENIDA');
-      renderList();
-    }
-
-    function resetRace() {
-      stopRace();
-      masterElapsed = 0;
-      masterStart = null;
-      competitors.forEach(c => {
-        c.capturedTime = null;
-        c.finished = false;
-        c.startOffset = 0;
-      });
-      document.getElementById('master-display').textContent = '00:00.000';
-      document.getElementById('status-label').textContent = 'LISTO PARA INICIAR';
-      document.getElementById('btn-start').disabled = false;
-      document.getElementById('btn-stop').disabled = true;
-      renderList();
-      updateStats();
-      showToast('CRONÓMETRO REINICIADO');
-    }
-
-    // ── COMPETITORS ──────────────────────────────────────
-    function addCompetitor() {
-      const input = document.getElementById('competitor-name');
-      const name = input.value.trim();
-      if (!name) {
-        showToast('⚠ INGRESA UN NOMBRE');
-        return;
-      }
-      competitors.push({
-        id: nextId++,
-        name,
-        capturedTime: null,
-        finished: false,
-      });
-      input.value = '';
-      renderList();
-      updateStats();
-      showToast(`✓ ${name.toUpperCase()} AGREGADO`);
-    }
-
-    function captureCompetitor(id) {
-      if (!raceRunning) { showToast('⚠ INICIA LA CARRERA PRIMERO'); return; }
-      const c = competitors.find(x => x.id === id);
-      if (!c || c.finished) return;
-      c.capturedTime = masterElapsed;
-      c.finished = true;
-      flashCard(id);
-      renderList();
-      updateStats();
-      showToast(`🏁 ${c.name.toUpperCase()} — ${formatTime(c.capturedTime)}`);
-    }
-
-    function removeCompetitor(id) {
-      competitors = competitors.filter(x => x.id !== id);
-      renderList();
-      updateStats();
-    }
-
-    // ── GET LEADER TIME ──────────────────────────────────
-    function getLeaderTime() {
-      const finished = competitors.filter(c => c.finished && c.capturedTime !== null);
-      if (!finished.length) return null;
-      return Math.min(...finished.map(c => c.capturedTime));
-    }
-
-    // ── SORT COMPETITORS ─────────────────────────────────
-    function getSortedCompetitors() {
-      return [...competitors].sort((a, b) => {
-        // Finished first, sorted by time
-        if (a.finished && !b.finished) return -1;
-        if (!a.finished && b.finished) return 1;
-        if (a.finished && b.finished) return a.capturedTime - b.capturedTime;
-        return a.id - b.id;
-      });
-    }
-
-    // ── RENDER ───────────────────────────────────────────
-    function renderList() {
-      const container = document.getElementById('competitor-list');
-      if (!competitors.length) {
-        container.innerHTML = `<div class="empty-state">
-          <div class="icon">🏁</div>
-          <p>Agrega competidores para comenzar la carrera</p>
-        </div>`;
-        return;
-      }
-
-      const leaderTime = getLeaderTime();
-      const sorted = getSortedCompetitors();
-
-      container.innerHTML = `<div class="competitor-list">
-        ${sorted.map((c, index) => {
-          const rank = index + 1;
-          const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
-          const badgeClass = rank === 1 ? 'gold' : rank === 2 ? 'silver' : rank === 3 ? 'bronze' : '';
-          const rankIcon = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : rank;
-
-          let timeDisplay, diffDisplay, timeClass, diffClass, statusText, statusClass;
-
-          if (c.finished) {
-            timeDisplay = formatTime(c.capturedTime);
-            timeClass = rank === 1 ? 'best-time' : '';
-            const diff = leaderTime !== null ? c.capturedTime - leaderTime : 0;
-            diffDisplay = diff === 0 ? 'LÍDER' : formatDiff(diff);
-            diffClass = diff === 0 ? 'leader' : '';
-            statusText = `Finalizado • Pos. #${rank}`;
-            statusClass = '';
-          } else {
-            const live = raceRunning ? masterElapsed : masterElapsed;
-            timeDisplay = `<span id="live-${c.id}">${formatTime(live)}</span>`;
-            timeClass = 'running-time';
-            diffDisplay = raceRunning ? 'EN PISTA' : '—';
-            diffClass = '';
-            statusText = raceRunning ? 'Corriendo...' : 'En espera';
-            statusClass = raceRunning ? 'running-status' : '';
-          }
-
-          return `
-          <div class="competitor-card ${rankClass} ${c.finished ? 'finished' : ''}" id="card-${c.id}">
-            <div class="rank-badge ${badgeClass}">${rankIcon}</div>
-            <div class="competitor-info">
-              <div class="competitor-name">${c.name}</div>
-              <div class="competitor-status ${statusClass}">${statusText}</div>
-            </div>
-            <div class="competitor-time ${timeClass}">${timeDisplay}</div>
-            <div class="competitor-diff ${diffClass}">${diffDisplay}</div>
-            <div class="card-actions">
-              ${!c.finished ? `<button class="btn-capture" onclick="captureCompetitor(${c.id})" ${!raceRunning ? 'disabled' : ''}>🏁 CAP</button>` : ''}
-              <button class="btn-remove" onclick="removeCompetitor(${c.id})" title="Eliminar">✕</button>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>`;
-    }
-
-    // ── LIVE UPDATE (running competitors only) ───────────
-    function updateLiveCards() {
-      competitors.forEach(c => {
-        if (!c.finished) {
-          const el = document.getElementById(`live-${c.id}`);
-          if (el) el.textContent = formatTime(masterElapsed);
-        }
-      });
-    }
-
-    // ── STATS ────────────────────────────────────────────
-    function updateStats() {
-      const finished = competitors.filter(c => c.finished);
-      const running  = competitors.filter(c => !c.finished);
-      const leaderTime = getLeaderTime();
-
-      document.getElementById('stat-count').textContent = competitors.length;
-      document.getElementById('stat-finished').textContent = finished.length;
-      document.getElementById('stat-running').textContent = running.length;
-
-      if (leaderTime !== null) {
-        const leader = competitors.find(c => c.capturedTime === leaderTime);
-        const shortName = leader ? leader.name.split(' ')[0].substring(0,10) : '—';
-        document.getElementById('stat-leader').textContent = shortName;
-      } else {
-        document.getElementById('stat-leader').textContent = '—';
-      }
-    }
-
-    setInterval(updateStats, 500);
-
-    // ── FLASH ANIMATION ──────────────────────────────────
-    function flashCard(id) {
-      const card = document.getElementById(`card-${id}`);
-      if (card) {
-        card.classList.add('flash');
-        setTimeout(() => card.classList.remove('flash'), 600);
-      }
-    }
-
-    // ── TOAST ────────────────────────────────────────────
-    let toastTimer;
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
-    }
-
-    // ── KEYBOARD SHORTCUTS ───────────────────────────────
-    document.addEventListener('keydown', e => {
-      if (e.target.tagName === 'INPUT') return;
-      if (e.code === 'Space') { e.preventDefault(); raceRunning ? stopRace() : startRace(); }
-      if (e.code === 'KeyR' && e.shiftKey) resetRace();
-    });
-
-    // ── INIT ─────────────────────────────────────────────
-    // Add demo competitors
-    ['Competidor 1', 'Competidor 2', 'Competidor 3'].forEach(n => {
-      competitors.push({ id: nextId++, name: n, capturedTime: null, finished: false });
-    });
+  function resetRace() {
+    stopRace();
+    masterElapsed = 0;
+    competitors.forEach(c => { c.capturedTime = null; c.finished = false; });
+    document.getElementById('master-display').textContent = '00:00.000';
+    document.getElementById('status-label').textContent = 'Listo para iniciar';
     renderList();
     updateStats();
-  </script>
+    showToast('Cronómetro reiniciado');
+  }
+
+  function addCompetitor() {
+    const input = document.getElementById('competitor-name');
+    const name = input.value.trim();
+    if (!name) { showToast('⚠ Ingresa un nombre'); return; }
+    competitors.push({ id: nextId++, name, capturedTime: null, finished: false });
+    input.value = '';
+    renderList();
+    updateStats();
+    showToast(`✓ ${name} agregado`);
+  }
+
+  function captureCompetitor(id) {
+    if (!raceRunning) { showToast('⚠ Inicia la carrera primero'); return; }
+    const c = competitors.find(x => x.id === id);
+    if (!c || c.finished) return;
+    c.capturedTime = masterElapsed;
+    c.finished = true;
+    flashCard(id);
+    renderList();
+    updateStats();
+    showToast(`🏁 ${c.name} — ${formatTime(c.capturedTime)}`);
+  }
+
+  function removeCompetitor(id) {
+    competitors = competitors.filter(x => x.id !== id);
+    renderList();
+    updateStats();
+  }
+
+  function getLeaderTime() {
+    const fin = competitors.filter(c => c.finished);
+    if (!fin.length) return null;
+    return Math.min(...fin.map(c => c.capturedTime));
+  }
+
+  function getSorted() {
+    return [...competitors].sort((a, b) => {
+      if (a.finished && !b.finished) return -1;
+      if (!a.finished && b.finished) return 1;
+      if (a.finished && b.finished) return a.capturedTime - b.capturedTime;
+      return a.id - b.id;
+    });
+  }
+
+  function renderList() {
+    const container = document.getElementById('competitor-list');
+    if (!competitors.length) {
+      container.innerHTML = `<div class="empty-state">
+        <div class="icon">🏁</div>
+        <p>Agrega competidores para comenzar</p>
+      </div>`;
+      return;
+    }
+
+    const leaderTime = getLeaderTime();
+    const sorted = getSorted();
+
+    container.innerHTML = sorted.map((c, i) => {
+      const rank = i + 1;
+      const rankIcon = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+      const rankClass = rank <= 3 ? `rank-${rank}` : '';
+
+      let timeHTML, diffHTML, timeClass, diffClass, statusText, statusClass;
+
+      if (c.finished) {
+        timeHTML = formatTime(c.capturedTime);
+        timeClass = rank === 1 ? 'best' : '';
+        const diff = leaderTime !== null ? c.capturedTime - leaderTime : 0;
+        diffHTML  = diff === 0 ? 'Líder' : formatDiff(diff);
+        diffClass = diff === 0 ? 'leader' : '';
+        statusText  = `Finalizado · Posición ${rank}`;
+        statusClass = '';
+      } else {
+        timeHTML   = `<span id="live-${c.id}">${formatTime(masterElapsed)}</span>`;
+        timeClass  = 'live';
+        diffHTML   = raceRunning ? 'En pista' : '—';
+        diffClass  = '';
+        statusText  = raceRunning ? 'Corriendo...' : 'En espera';
+        statusClass = raceRunning ? 'running' : '';
+      }
+
+      return `
+      <div class="competitor-card ${rankClass}" id="card-${c.id}">
+        <div class="rank-badge">${rankIcon}</div>
+        <div class="comp-info">
+          <div class="comp-name">${c.name}</div>
+          <div class="comp-status ${statusClass}">${statusText}</div>
+        </div>
+        <div class="comp-time ${timeClass}">${timeHTML}</div>
+        <div class="comp-diff ${diffClass}">${diffHTML}</div>
+        <div class="card-actions">
+          ${!c.finished ? `<button class="btn-capture" onclick="captureCompetitor(${c.id})" ${!raceRunning?'disabled':''}>🏁 Capturar</button>` : ''}
+          <button class="btn-remove" onclick="removeCompetitor(${c.id})" title="Eliminar">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function updateLiveCards() {
+    competitors.forEach(c => {
+      if (!c.finished) {
+        const el = document.getElementById(`live-${c.id}`);
+        if (el) el.textContent = formatTime(masterElapsed);
+      }
+    });
+  }
+
+  function updateStats() {
+    const fin = competitors.filter(c => c.finished);
+    document.getElementById('stat-count').textContent    = competitors.length;
+    document.getElementById('stat-finished').textContent = fin.length;
+    document.getElementById('stat-running').textContent  = competitors.length - fin.length;
+    const lt = getLeaderTime();
+    if (lt !== null) {
+      const leader = competitors.find(c => c.capturedTime === lt);
+      document.getElementById('stat-leader').textContent = leader ? leader.name.split(' ')[0].substring(0,8) : '—';
+    } else {
+      document.getElementById('stat-leader').textContent = '—';
+    }
+  }
+  setInterval(updateStats, 500);
+
+  function flashCard(id) {
+    const el = document.getElementById(`card-${id}`);
+    if (el) { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 500); }
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.code === 'Space') { e.preventDefault(); raceRunning ? stopRace() : startRace(); }
+  });
+
+  renderList();
+  updateStats();
+</script>
 </body>
 </html>
