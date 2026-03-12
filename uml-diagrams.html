@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cronómetro – Diagramas UML</title>
+  <title>Cronómetro UMG – Diagramas UML</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f0f4f8; color: #2d3748; font-family: 'Poppins', sans-serif; }
+    body { background: #f0f4f8; color: #2d3748; font-family: 'Poppins', system-ui, Arial, sans-serif; }
     .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
     header { text-align: center; margin-bottom: 28px; padding-top: 20px; }
     header h1 { font-size: 1.8rem; font-weight: 700; color: #2b6cb0; }
@@ -15,7 +15,7 @@
     .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 28px; }
     .nav-btn {
       background: #fff; border: 1px solid #cbd5e0; color: #4a5568;
-      font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 500;
+      font-family: 'Poppins', system-ui, Arial, sans-serif; font-size: 0.82rem; font-weight: 500;
       padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.15s;
     }
     .nav-btn:hover { border-color: #4299e1; color: #2b6cb0; }
@@ -50,7 +50,7 @@
 <div class="container">
   <header>
     <h1>📐 Diagramas UML</h1>
-    <p>Cronómetro de Competidores — Diseño del sistema</p>
+    <p>Cronómetro de Competidores UMG — Diseño del sistema</p>
   </header>
 
   <div class="nav">
@@ -63,39 +63,63 @@
     <button class="nav-btn" onclick="showAll()">Ver Todo</button>
   </div>
 
+  <!-- 1. CASOS DE USO -->
   <div class="diagram-section active" id="sec-uc">
     <div class="diag-title"><div class="diag-num">1</div>Diagrama de Casos de Uso</div>
-    <div class="diag-desc">Muestra los actores del sistema (Juez/Operador) y todas las interacciones posibles con la aplicacion Cronómetro.</div>
+    <div class="diag-desc">
+      Muestra al actor Juez/Operador y todas sus interacciones con el sistema. Se agregaron los casos
+      de uso: Ver Diferencia vs Anterior e Imprimir Resultados.
+    </div>
     <div class="diagram-output" id="out-uc"><span class="loading">Cargando...</span></div>
   </div>
 
+  <!-- 2. CLASES -->
   <div class="diagram-section" id="sec-cls">
     <div class="diag-title"><div class="diag-num">2</div>Diagrama de Clases</div>
-    <div class="diag-desc">Define la estructura estatica: clases, atributos, metodos y relaciones de asociacion, composicion y dependencia.</div>
+    <div class="diag-desc">
+      Clases renombradas al español. La clase Clasificacion incluye calcularDiffAnterior() y
+      RenderizadorUI incluye imprimirResultados().
+    </div>
     <div class="diagram-output" id="out-cls"><span class="loading">Cargando...</span></div>
   </div>
 
+  <!-- 3. SECUENCIA -->
   <div class="diagram-section" id="sec-seq">
     <div class="diag-title"><div class="diag-num">3</div>Diagrama de Secuencia</div>
-    <div class="diag-desc">Flujo temporal de mensajes entre el Operador, la interfaz y los componentes internos durante el ciclo de una carrera.</div>
+    <div class="diag-desc">
+      Nombres en español. Incluye el flujo de calculo de diferencia vs anterior, fallback de fuente
+      en la carga inicial, y el flujo de impresion de resultados.
+    </div>
     <div class="diagram-output" id="out-seq"><span class="loading">Cargando...</span></div>
   </div>
 
+  <!-- 4. OBJETOS -->
   <div class="diagram-section" id="sec-obj">
     <div class="diag-title"><div class="diag-num">4</div>Diagrama de Objetos</div>
-    <div class="diag-desc">Instantanea del sistema con valores concretos: 3 competidores registrados, 2 finalizados, 1 en pista.</div>
+    <div class="diag-desc">
+      Instantanea del sistema con 3 competidores. Los objetos Competidor ahora muestran valores
+      concretos de diffLider y diffAnterior.
+    </div>
     <div class="diagram-output" id="out-obj"><span class="loading">Cargando...</span></div>
   </div>
 
+  <!-- 5. COMPONENTES -->
   <div class="diagram-section" id="sec-cmp">
     <div class="diag-title"><div class="diag-num">5</div>Diagrama de Componentes</div>
-    <div class="diag-desc">Arquitectura en capas: presentacion, logica, renderizado, estado y recursos externos.</div>
+    <div class="diag-desc">
+      La capa de Presentacion ahora indica Poppins con fallback a fuentes del sistema.
+      Se agrego el componente GestorImpresion en la capa de Renderizado.
+    </div>
     <div class="diagram-output" id="out-cmp"><span class="loading">Cargando...</span></div>
   </div>
 
+  <!-- 6. ACTIVIDAD -->
   <div class="diagram-section" id="sec-act">
     <div class="diag-title"><div class="diag-num">6</div>Diagrama de Actividad</div>
-    <div class="diag-desc">Flujo completo desde que el operador abre la app hasta la clasificacion final, con decisiones y ciclos.</div>
+    <div class="diag-desc">
+      Se agregaron dos actividades nuevas: calcular diferencia vs anterior despues de cada captura,
+      y la decision de imprimir resultados al finalizar la carrera.
+    </div>
     <div class="diagram-output" id="out-act"><span class="loading">Cargando...</span></div>
   </div>
 </div>
@@ -105,9 +129,11 @@ import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.mi
 mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
 
 const diagrams = {
+
+  // ── 1. CASOS DE USO ──────────────────────────────────────────────────────
   uc: `flowchart LR
     actor1(["Juez / Operador"])
-    subgraph SYS["ChronoRace Sistema de Cronometraje"]
+    subgraph SYS["Cronometro UMG - Sistema de Cronometraje"]
         direction TB
         UC1(["Iniciar Carrera"])
         UC2(["Detener Carrera"])
@@ -118,6 +144,8 @@ const diagrams = {
         UC7(["Ver Clasificacion"])
         UC8(["Ver Diferencia vs Lider"])
         UC9(["Ver Estadisticas"])
+        UC10(["Imprimir Resultados"])
+        UC11(["Ver Diferencia vs Anterior"])
     end
     actor1 --> UC1
     actor1 --> UC2
@@ -126,188 +154,222 @@ const diagrams = {
     actor1 --> UC5
     actor1 --> UC6
     actor1 --> UC7
-    actor1 --> UC8
     actor1 --> UC9
+    actor1 --> UC10
     UC5 -.->|include| UC7
     UC7 -.->|include| UC8
+    UC7 -.->|include| UC11
+    UC10 -.->|include| UC7
     UC1 -.->|extend| UC5
     style SYS fill:#f0f8ff,stroke:#0099cc,stroke-width:2px
     style actor1 fill:#e8f4ff,stroke:#0077aa,stroke-width:2px
     style UC1 fill:#d4edda,stroke:#28a745
     style UC2 fill:#f8d7da,stroke:#dc3545
     style UC3 fill:#fff3cd,stroke:#ffc107
-    style UC5 fill:#cce5ff,stroke:#0055aa,stroke-width:2px`,
+    style UC5 fill:#cce5ff,stroke:#0055aa,stroke-width:2px
+    style UC10 fill:#e9d8fd,stroke:#805ad5,stroke-width:2px
+    style UC11 fill:#e9d8fd,stroke:#805ad5,stroke-width:2px`,
 
+  // ── 2. CLASES ─────────────────────────────────────────────────────────────
   cls: `classDiagram
-    class ChronoRaceApp {
-        -competitors Competitor[]
-        -nextId number
-        +startRace() void
-        +stopRace() void
-        +resetRace() void
-        +addCompetitor(name) void
-        +removeCompetitor(id) void
-        +renderList() void
-        +updateStats() void
+    class AplicacionCronometro {
+        -competidores Competidor[]
+        -siguienteId number
+        +iniciarCarrera() void
+        +detenerCarrera() void
+        +reiniciarCarrera() void
+        +agregarCompetidor(nombre) void
+        +eliminarCompetidor(id) void
+        +renderizarLista() void
+        +actualizarEstadisticas() void
     }
-    class MasterClock {
-        -startTimestamp number
-        -elapsed number
-        -isRunning boolean
-        +start() void
-        +stop() void
-        +reset() void
-        +getElapsed() number
-        +formatTime(ms) string
+    class RelojPrincipal {
+        -marcaTiempoInicio number
+        -tiempoTranscurrido number
+        -estaCorreindo boolean
+        +iniciar() void
+        +detener() void
+        +reiniciar() void
+        +obtenerTiempo() number
     }
-    class Competitor {
+    class Competidor {
         -id number
-        -name string
-        -capturedTime number
-        -finished boolean
-        +capture(time) void
-        +reset() void
-        +isFinished() boolean
-        +getCapturedTime() number
+        -nombre string
+        -tiempoCapturado number
+        -finalizado boolean
+        +capturar(tiempo) void
+        +reiniciar() void
+        +estaFinalizado() boolean
+        +obtenerTiempo() number
     }
-    class Leaderboard {
-        -competitors Competitor[]
-        +getSorted() Competitor[]
-        +getLeaderTime() number
-        +getDiff(c) number
-        +getRank(c) number
+    class Clasificacion {
+        -competidores Competidor[]
+        +ordenar() Competidor[]
+        +obtenerTiempoLider() number
+        +calcularDiffLider(c) number
+        +calcularDiffAnterior(c, anterior) number
+        +obtenerPosicion(c) number
     }
-    class UIRenderer {
-        +renderCard(c, rank) string
-        +renderEmptyState() string
-        +flashCard(id) void
-        +showToast(msg) void
+    class RenderizadorUI {
+        +renderizarTarjeta(c, pos, diffAnt) string
+        +renderizarVacio() string
+        +parpadearTarjeta(id) void
+        +mostrarNotificacion(msg) void
+        +imprimirResultados() void
     }
-    class StatsPanel {
-        -leaderEl HTMLElement
-        -countEl HTMLElement
-        +update(competitors) void
-        +getLeaderName() string
+    class PanelEstadisticas {
+        -elLider HTMLElement
+        -elTotal HTMLElement
+        +actualizar(competidores) void
+        +obtenerNombreLider() string
     }
-    class TimeFormatter {
-        +format(ms) string
-        +formatDiff(ms) string
+    class FormateadorTiempo {
+        +formatear(ms) string
+        +formatearDiferencia(ms) string
     }
-    ChronoRaceApp "1" *-- "1" MasterClock : compone
-    ChronoRaceApp "1" *-- "*" Competitor : gestiona
-    ChronoRaceApp "1" *-- "1" Leaderboard : utiliza
-    ChronoRaceApp "1" *-- "1" UIRenderer : delega
-    ChronoRaceApp "1" *-- "1" StatsPanel : actualiza
-    Leaderboard "1" o-- "*" Competitor : ordena
-    UIRenderer ..> TimeFormatter : usa
-    Leaderboard ..> TimeFormatter : usa`,
+    AplicacionCronometro "1" *-- "1" RelojPrincipal : compone
+    AplicacionCronometro "1" *-- "*" Competidor : gestiona
+    AplicacionCronometro "1" *-- "1" Clasificacion : utiliza
+    AplicacionCronometro "1" *-- "1" RenderizadorUI : delega
+    AplicacionCronometro "1" *-- "1" PanelEstadisticas : actualiza
+    Clasificacion "1" o-- "*" Competidor : ordena
+    RenderizadorUI ..> FormateadorTiempo : usa
+    Clasificacion ..> FormateadorTiempo : usa`,
 
+  // ── 3. SECUENCIA ──────────────────────────────────────────────────────────
   seq: `sequenceDiagram
     actor Operador
     participant UI as Interfaz UI
-    participant App as ChronoRaceApp
-    participant Clock as MasterClock
-    participant Comp as Competitor
-    participant Board as Leaderboard
-    Operador->>UI: Agrega competidor
-    UI->>App: addCompetitor(name)
-    App->>Comp: new Competitor(id, name)
-    App->>Board: actualizar lista
-    App->>UI: renderList() + toast
+    participant App as AplicacionCronometro
+    participant Reloj as RelojPrincipal
+    participant Comp as Competidor
+    participant Clas as Clasificacion
+    participant Fmt as FormateadorTiempo
+
+    Note over UI: Carga fuente Poppins con fallback a system-ui Arial
+    Operador->>UI: Agrega nombre de competidor
+    UI->>App: agregarCompetidor(nombre)
+    App->>Comp: new Competidor(id, nombre)
+    App->>Clas: actualizar lista
+    App->>UI: renderizarLista() + notificacion
+
     Operador->>UI: Click INICIAR
-    UI->>App: startRace()
-    App->>Clock: start()
-    Clock-->>App: interval activo 10ms
-    App->>UI: mostrar tiempo master
+    UI->>App: iniciarCarrera()
+    App->>Reloj: iniciar()
+    Reloj-->>App: interval activo cada 10ms
+    App->>UI: mostrar tiempo principal
+
     loop Cada 50ms
-        Clock-->>App: getElapsed()
+        Reloj-->>App: obtenerTiempo()
         App->>UI: actualizar tiempos en vivo
     end
-    Operador->>UI: Click CAP del competidor
-    UI->>App: captureCompetitor(id)
-    App->>Clock: getElapsed()
-    Clock-->>App: tiempo actual ms
-    App->>Comp: capture(elapsedTime)
-    Comp-->>App: finished = true
-    App->>Board: getSorted()
-    Board-->>App: lista ordenada
-    App->>UI: renderList() + flashCard()
+
+    Operador->>UI: Click Capturar competidor
+    UI->>App: capturarCompetidor(id)
+    App->>Reloj: obtenerTiempo()
+    Reloj-->>App: tiempoTranscurrido ms
+    App->>Comp: capturar(tiempoTranscurrido)
+    Comp-->>App: finalizado = true
+    App->>Clas: ordenar()
+    Clas-->>App: lista ordenada por tiempo
+    App->>Clas: calcularDiffLider(c)
+    Clas-->>App: diferencia vs lider
+    App->>Clas: calcularDiffAnterior(c, anterior)
+    Clas-->>App: diferencia vs anterior
+    App->>Fmt: formatearDiferencia(diff)
+    Fmt-->>App: texto formateado
+    App->>UI: renderizarLista() con ambas diferencias
+    App->>UI: parpadearTarjeta(id)
+
     Operador->>UI: Click DETENER
-    UI->>App: stopRace()
-    App->>Clock: stop()
-    App->>UI: mostrar clasificacion final`,
+    UI->>App: detenerCarrera()
+    App->>Reloj: detener()
+    App->>UI: mostrar clasificacion final
 
+    Operador->>UI: Click Imprimir Resultados
+    UI->>App: imprimirResultados()
+    App->>UI: window.print() solo clasificacion`,
+
+  // ── 4. OBJETOS ────────────────────────────────────────────────────────────
   obj: `classDiagram
-    class appChronoRaceApp {
-        competitors = c1 c2 c3
-        nextId = 4
-        raceRunning = true
+    class appAplicacion {
+        competidores = c1 c2 c3
+        siguienteId = 4
+        estaCorreindo = true
     }
-    class clockMasterClock {
-        elapsed = 185420
-        isRunning = true
-        startTimestamp = 1700000000
+    class relojPrincipal {
+        tiempoTranscurrido = 185420
+        estaCorreindo = true
+        marcaTiempoInicio = 1700000000
     }
-    class c1Competitor {
+    class c1Competidor {
         id = 1
-        name = Ana Garcia
-        capturedTime = 62340
-        finished = true
+        nombre = Ana Garcia
+        tiempoCapturado = 62340
+        finalizado = true
+        diffLider = 0
+        diffAnterior = null
     }
-    class c2Competitor {
+    class c2Competidor {
         id = 2
-        name = Luis Perez
-        capturedTime = 68120
-        finished = true
+        nombre = Luis Perez
+        tiempoCapturado = 68120
+        finalizado = true
+        diffLider = 5780
+        diffAnterior = 5780
     }
-    class c3Competitor {
+    class c3Competidor {
         id = 3
-        name = Maria Lopez
-        capturedTime = null
-        finished = false
+        nombre = Maria Lopez
+        tiempoCapturado = null
+        finalizado = false
+        diffLider = null
+        diffAnterior = null
     }
-    class boardLeaderboard {
-        sorted = c1 c2 c3
-        leaderTime = 62340
+    class clasificacion {
+        ordenados = c1 c2 c3
+        tiempoLider = 62340
     }
-    class statsStatsPanel {
-        leaderName = Ana Garcia
-        count = 3
-        finished = 2
-        running = 1
+    class panelEstadisticas {
+        nombreLider = Ana Garcia
+        total = 3
+        finalizados = 2
+        enCarrera = 1
     }
-    appChronoRaceApp --> clockMasterClock : tiene
-    appChronoRaceApp --> c1Competitor : gestiona
-    appChronoRaceApp --> c2Competitor : gestiona
-    appChronoRaceApp --> c3Competitor : gestiona
-    appChronoRaceApp --> boardLeaderboard : usa
-    appChronoRaceApp --> statsStatsPanel : actualiza
-    boardLeaderboard --> c1Competitor : ordena
-    boardLeaderboard --> c2Competitor : ordena
-    boardLeaderboard --> c3Competitor : ordena`,
+    appAplicacion --> relojPrincipal : tiene
+    appAplicacion --> c1Competidor : gestiona
+    appAplicacion --> c2Competidor : gestiona
+    appAplicacion --> c3Competidor : gestiona
+    appAplicacion --> clasificacion : usa
+    appAplicacion --> panelEstadisticas : actualiza
+    clasificacion --> c1Competidor : ordena
+    clasificacion --> c2Competidor : ordena
+    clasificacion --> c3Competidor : ordena`,
 
+  // ── 5. COMPONENTES ────────────────────────────────────────────────────────
   cmp: `flowchart TB
     subgraph BROWSER["Navegador Web - Cliente"]
         subgraph PRES["Capa Presentacion HTML CSS"]
             HTML["index.html - Estructura DOM y Layout"]
-            CSS["Estilos - Variables Animaciones Responsive"]
+            CSS["Estilos - Poppins con fallback system-ui Arial - Responsive - Print CSS"]
         end
         subgraph LOGIC["Capa Logica JavaScript"]
-            CLOCK["MasterClock - setInterval Date.now"]
-            COMPLIST["CompetitorManager - add capture remove"]
-            SORTER["Leaderboard - getSorted getDiff"]
+            CLOCK["RelojPrincipal - setInterval Date.now"]
+            COMPLIST["GestorCompetidores - agregar capturar eliminar"]
+            SORTER["Clasificacion - ordenar calcDiffLider calcDiffAnterior"]
         end
         subgraph RENDER["Capa Renderizado DOM API"]
-            RENDERER["UIRenderer - renderList flashCard toast"]
-            STATS["StatsPanel - updateStats"]
-            FORMAT["TimeFormatter - format formatDiff"]
+            RENDERER["RenderizadorUI - renderizarLista parpadear notificacion"]
+            PRINT["GestorImpresion - imprimirResultados window.print"]
+            STATS["PanelEstadisticas - actualizarEstadisticas"]
+            FORMAT["FormateadorTiempo - formatear formatearDiferencia"]
         end
         subgraph DATA["Estado en Memoria"]
-            STATE["AppState - competitors elapsed running"]
+            STATE["EstadoApp - competidores tiempoTranscurrido estaCorreindo"]
         end
     end
     subgraph EXT["Recursos Externos"]
-        GFONTS["Google Fonts - Orbitron Rajdhani"]
+        GFONTS["Google Fonts - Poppins con fallback system-ui Arial"]
         GITHUB["GitHub Pages - Hosting Estatico"]
     end
     HTML --> LOGIC
@@ -316,7 +378,9 @@ const diagrams = {
     SORTER --> RENDERER
     CLOCK --> RENDERER
     RENDERER --> STATS
+    RENDERER --> PRINT
     FORMAT --> RENDERER
+    FORMAT --> SORTER
     LOGIC --> STATE
     BROWSER --> GITHUB
     HTML --> GFONTS
@@ -324,45 +388,54 @@ const diagrams = {
     style LOGIC fill:#fff3cd,stroke:#ffc107
     style RENDER fill:#d4edda,stroke:#28a745
     style DATA fill:#f8d7da,stroke:#dc3545
-    style EXT fill:#e2e3e5,stroke:#6c757d`,
+    style EXT fill:#e2e3e5,stroke:#6c757d
+    style PRINT fill:#e9d8fd,stroke:#805ad5`,
 
+  // ── 6. ACTIVIDAD ──────────────────────────────────────────────────────────
   act: `flowchart TD
     S(["INICIO"])
-    B["Abrir ChronoRace en Navegador"]
+    B["Abrir Cronometro en Navegador"]
+    BF["Cargar fuente Poppins con fallback sistema"]
     C["Agregar nombre de competidor"]
     D{"Nombre valido?"}
     E["Mostrar error: Ingresa un nombre"]
-    F["Crear objeto Competitor"]
+    F["Crear objeto Competidor"]
     G["Actualizar lista y estadisticas"]
     H{"Mas competidores?"}
     I["Click INICIAR Carrera"]
-    J["MasterClock.start - interval 10ms"]
+    J["RelojPrincipal.iniciar - interval 10ms"]
     K["Mostrar tiempo en tiempo real"]
     L{"Competidor llega a meta?"}
-    M["Click CAP del competidor"]
-    N["Capturar tiempo con getElapsed()"]
-    O["Competitor.capture - finished = true"]
-    P["Recalcular Leaderboard.getSorted()"]
-    Q["Calcular diferencias vs lider"]
-    R["Actualizar UI y clasificacion"]
+    M["Click Capturar del competidor"]
+    N["Capturar tiempo con obtenerTiempo()"]
+    O["Competidor.capturar - finalizado = true"]
+    P["Recalcular Clasificacion.ordenar()"]
+    Q1["Calcular diferencia vs lider"]
+    Q2["Calcular diferencia vs anterior"]
+    R["Actualizar UI con ambas diferencias"]
     SN{"Todos finalizaron?"}
     T["Click DETENER Carrera"]
-    U["MasterClock.stop - clear intervals"]
+    U["RelojPrincipal.detener - limpiar intervals"]
     V["Mostrar clasificacion final"]
+    PR{"Imprimir resultados?"}
+    PRA["window.print - solo clasificacion visible"]
     W{"Reiniciar?"}
-    X["resetRace - Competitor.reset x todos"]
+    X["reiniciarCarrera - Competidor.reiniciar x todos"]
     Z(["FIN"])
-    S --> B --> C --> D
+    S --> B --> BF --> C
+    C --> D
     D -- No --> E --> C
     D -- Si --> F --> G --> H
     H -- Si --> C
     H -- No --> I --> J --> K
     K --> L
     L -- No --> K
-    L -- Si --> M --> N --> O --> P --> Q --> R --> SN
+    L -- Si --> M --> N --> O --> P --> Q1 --> Q2 --> R --> SN
     SN -- No --> K
-    SN -- Si --> T --> U --> V --> W
-    W -- Si --> X --> B
+    SN -- Si --> T --> U --> V --> PR
+    PR -- Si --> PRA --> W
+    PR -- No --> W
+    W -- Si --> X --> C
     W -- No --> Z
     style S fill:#00b347,color:#fff,stroke:none
     style Z fill:#cc2200,color:#fff,stroke:none
@@ -370,8 +443,12 @@ const diagrams = {
     style SN fill:#fff3cd,stroke:#ffc107
     style H fill:#fff3cd,stroke:#ffc107
     style W fill:#fff3cd,stroke:#ffc107
+    style PR fill:#fff3cd,stroke:#ffc107
     style E fill:#f8d7da,stroke:#dc3545
     style O fill:#cce5ff,stroke:#0055aa
+    style BF fill:#e8f4ff,stroke:#0099cc
+    style Q2 fill:#e9d8fd,stroke:#805ad5
+    style PRA fill:#e9d8fd,stroke:#805ad5
     style V fill:#d4edda,stroke:#28a745,stroke-width:2px`
 };
 
@@ -388,7 +465,7 @@ async function renderDiagram(id) {
     el.innerHTML = svg;
     rendered[id] = true;
   } catch(e) {
-    el.innerHTML = '<span class="err">Error al renderizar diagrama: ' + e.message + '</span>';
+    el.innerHTML = '<span class="err">Error al renderizar: ' + e.message + '</span>';
     console.error(e);
   }
 }
@@ -408,7 +485,6 @@ window.showAll = async function() {
   for (const id of sections) await renderDiagram(id);
 };
 
-// Render first on load
 renderDiagram('uc');
 </script>
 </body>
