@@ -465,6 +465,19 @@ async function renderDiagram(id) {
     const uid = 'mg-' + id + '-' + Date.now();
     const { svg } = await mermaid.render(uid, diagrams[id]);
     el.innerHTML = svg;
+
+    // Forzar tamaño en diagramas complejos
+    const svgEl = el.querySelector('svg');
+    if (svgEl) {
+      const viewBox = svgEl.getAttribute('viewBox');
+      if (viewBox && (id === 'cmp' || id === 'act' || id === 'seq')) {
+        svgEl.removeAttribute('width');
+        svgEl.removeAttribute('height');
+        svgEl.style.width = '100%';
+        svgEl.style.minHeight = id === 'act' ? '900px' : '600px';
+      }
+    }
+
     rendered[id] = true;
   } catch(e) {
     el.innerHTML = '<span class="err">Error al renderizar: ' + e.message + '</span>';
