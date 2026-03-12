@@ -4,40 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cronómetro de Competidores</title>
+  <!-- Fuente con fallback: si no hay internet usa sans-serif del sistema -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: #f0f4f8;
-      font-family: 'Poppins', sans-serif;
+      /* CAMBIO 1: fallback a fuentes del sistema si no hay internet */
+      font-family: 'Poppins', system-ui, -apple-system, Arial, sans-serif;
       color: #2d3748;
       min-height: 100vh;
     }
 
     .container {
-      max-width: 700px;
+      max-width: 750px;
       margin: 0 auto;
       padding: 24px 16px 60px;
     }
 
-    /* HEADER */
-    header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #2b6cb0;
-    }
-    header p {
-      font-size: 0.9rem;
-      color: #718096;
-      margin-top: 4px;
-    }
-
-    /* CARD */
     .card {
       background: #ffffff;
       border-radius: 12px;
@@ -55,7 +40,6 @@
       margin-bottom: 16px;
     }
 
-    /* TIMER DISPLAY */
     .time-display {
       font-size: clamp(2.8rem, 10vw, 4.5rem);
       font-weight: 700;
@@ -72,7 +56,6 @@
     }
     .status-label.running { color: #38a169; font-weight: 600; }
 
-    /* BUTTONS */
     .controls {
       display: flex;
       justify-content: center;
@@ -80,7 +63,7 @@
       flex-wrap: wrap;
     }
     button {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', system-ui, Arial, sans-serif;
       font-size: 0.9rem;
       font-weight: 600;
       padding: 10px 22px;
@@ -97,17 +80,13 @@
     .btn-stop   { background: #e53e3e; color: #fff; }
     .btn-reset  { background: #e2e8f0; color: #4a5568; }
 
-    /* ADD COMPETITOR */
-    .input-row {
-      display: flex;
-      gap: 10px;
-    }
+    .input-row { display: flex; gap: 10px; }
     .name-input {
       flex: 1;
       padding: 10px 14px;
       border: 1px solid #cbd5e0;
       border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', system-ui, Arial, sans-serif;
       font-size: 0.95rem;
       color: #2d3748;
       outline: none;
@@ -117,7 +96,6 @@
     .name-input::placeholder { color: #a0aec0; }
     .btn-add { background: #4299e1; color: #fff; white-space: nowrap; }
 
-    /* STATS ROW */
     .stats-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -131,18 +109,9 @@
       text-align: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
-    .stat-val {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #2b6cb0;
-    }
-    .stat-lbl {
-      font-size: 0.7rem;
-      color: #a0aec0;
-      margin-top: 2px;
-    }
+    .stat-val { font-size: 1.5rem; font-weight: 700; color: #2b6cb0; }
+    .stat-lbl { font-size: 0.7rem; color: #a0aec0; margin-top: 2px; }
 
-    /* COMPETITOR LIST */
     .empty-state {
       text-align: center;
       padding: 40px 0;
@@ -151,10 +120,12 @@
     }
     .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
 
+    /* CAMBIO 2: grid ampliado para incluir columna de diff vs anterior */
     .competitor-card {
-      display: flex;
+      display: grid;
+      grid-template-columns: 36px 1fr auto auto auto auto;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       padding: 14px 16px;
       border-radius: 10px;
       border: 1px solid #e2e8f0;
@@ -166,13 +137,9 @@
     .competitor-card.rank-2 { border-left: 4px solid #a0aec0; }
     .competitor-card.rank-3 { border-left: 4px solid #c47a3a; }
 
-    .rank-badge {
-      font-size: 1.4rem;
-      min-width: 32px;
-      text-align: center;
-    }
+    .rank-badge { font-size: 1.3rem; text-align: center; }
 
-    .comp-info { flex: 1; min-width: 0; }
+    .comp-info { min-width: 0; }
     .comp-name {
       font-weight: 600;
       font-size: 0.95rem;
@@ -180,38 +147,45 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .comp-status {
-      font-size: 0.75rem;
-      color: #a0aec0;
-      margin-top: 1px;
-    }
+    .comp-status { font-size: 0.72rem; color: #a0aec0; margin-top: 1px; }
     .comp-status.running { color: #38a169; }
 
     .comp-time {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: #2d3748;
       text-align: right;
-      min-width: 100px;
+      min-width: 95px;
     }
     .comp-time.best { color: #d69e2e; }
     .comp-time.live { color: #3182ce; }
 
+    /* Diferencia vs líder */
     .comp-diff {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       color: #e53e3e;
-      min-width: 70px;
       text-align: right;
+      min-width: 85px;
     }
     .comp-diff.leader { color: #38a169; }
+
+    /* CAMBIO 2: Diferencia vs anterior */
+    .comp-diff-prev {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #805ad5;
+      text-align: right;
+      min-width: 85px;
+    }
+    .comp-diff-prev.first { color: #a0aec0; font-weight: 400; }
 
     .card-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
     .btn-capture {
       background: #ed8936;
       color: #fff;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Poppins', system-ui, Arial, sans-serif;
       font-size: 0.75rem;
       font-weight: 600;
       padding: 6px 12px;
@@ -236,14 +210,50 @@
     }
     .btn-remove:hover { background: #fc8181; color: #fff; }
 
-    /* FLASH */
+    /* CAMBIO 3: Botón imprimir */
+    .btn-print {
+      background: #edf2f7;
+      color: #4a5568;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+      font-family: 'Poppins', system-ui, Arial, sans-serif;
+    }
+    .btn-print:hover { background: #e2e8f0; }
+
+    .leaderboard-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .diff-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 0.72rem;
+      color: #a0aec0;
+      flex-wrap: wrap;
+    }
+    .diff-legend span { display: flex; align-items: center; gap: 4px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
     @keyframes flash {
       0%, 100% { background: #fff; }
       50% { background: #c6f6d5; }
     }
     .competitor-card.flash { animation: flash 0.5s ease; }
 
-    /* TOAST */
     .toast {
       position: fixed;
       bottom: 24px; left: 50%;
@@ -261,16 +271,51 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    @media (max-width: 500px) {
-      .comp-diff { display: none; }
+    /* ── ESTILOS DE IMPRESIÓN ── */
+    @media print {
+      body { background: #fff; }
+      .card:not(#card-leaderboard),
+      .stats-row,
+      .toast,
+      .btn-print,
+      .btn-capture,
+      .btn-remove,
+      .leaderboard-footer,
+      .controls { display: none !important; }
+      #card-leaderboard {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+      .print-header {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2b6cb0;
+      }
+      .competitor-card {
+        border: 1px solid #e2e8f0 !important;
+        break-inside: avoid;
+      }
+    }
+    .print-header { display: none; }
+
+    @media (max-width: 560px) {
+      .competitor-card { grid-template-columns: 32px 1fr auto auto; }
+      .comp-diff-prev { display: none; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 400px) {
+      .comp-diff { display: none; }
     }
   </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- UMG HEADER -->
+  <!-- HEADER UMG -->
   <header style="
     background: linear-gradient(135deg, #004E72 0%, #0077A8 70%, #009AC4 100%);
     border-radius: 12px;
@@ -333,8 +378,8 @@
     <div class="status-label" id="status-label">Listo para iniciar</div>
     <div class="controls">
       <button class="btn-start" id="btn-start" onclick="startRace()">▶ Iniciar</button>
-      <button class="btn-stop"  id="btn-stop"  onclick="stopRace()"  disabled>⏹ Detener</button>
-      <button class="btn-reset"                onclick="resetRace()">↺ Reiniciar</button>
+      <button class="btn-stop"  id="btn-stop"  onclick="stopRace()" disabled>⏹ Detener</button>
+      <button class="btn-reset"               onclick="resetRace()">↺ Reiniciar</button>
     </div>
   </div>
 
@@ -351,13 +396,26 @@
   </div>
 
   <!-- LEADERBOARD -->
-  <div class="card">
+  <div class="card" id="card-leaderboard">
     <div class="card-title">🏆 Clasificación</div>
+
+    <!-- Título solo visible al imprimir -->
+    <div class="print-header">⏱ Cronómetro UMG — Resultados Finales</div>
+
     <div id="competitor-list">
       <div class="empty-state">
         <div class="icon">🏁</div>
         <p>Agrega competidores para comenzar</p>
       </div>
+    </div>
+
+    <!-- CAMBIO 3: Footer con leyenda y botón imprimir -->
+    <div class="leaderboard-footer">
+      <div class="diff-legend">
+        <span><span class="dot" style="background:#e53e3e"></span> vs Líder</span>
+        <span><span class="dot" style="background:#805ad5"></span> vs Anterior</span>
+      </div>
+      <button class="btn-print" onclick="printResults()">🖨️ Imprimir resultados</button>
     </div>
   </div>
 
@@ -366,30 +424,32 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  let masterStart = null;
+  let masterStart   = null;
   let masterElapsed = 0;
   let masterInterval = null;
-  let liveInterval = null;
-  let raceRunning = false;
-  let competitors = [];
-  let nextId = 1;
+  let liveInterval   = null;
+  let raceRunning    = false;
+  let competitors    = [];
+  let nextId         = 1;
 
+  // ── FORMATO TIEMPO ──────────────────────────────────
   function formatTime(ms) {
     if (ms < 0) ms = 0;
-    const m = Math.floor(ms / 60000);
-    const s = Math.floor((ms % 60000) / 1000);
+    const m   = Math.floor(ms / 60000);
+    const s   = Math.floor((ms % 60000) / 1000);
     const ms3 = ms % 1000;
     return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(ms3).padStart(3,'0')}`;
   }
 
   function formatDiff(ms) {
     if (ms <= 0) return '+00:00.000';
-    const m = Math.floor(ms / 60000);
-    const s = Math.floor((ms % 60000) / 1000);
+    const m   = Math.floor(ms / 60000);
+    const s   = Math.floor((ms % 60000) / 1000);
     const ms3 = ms % 1000;
     return `+${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(ms3).padStart(3,'0')}`;
   }
 
+  // ── CONTROL DE CARRERA ──────────────────────────────
   function startRace() {
     if (raceRunning) return;
     masterStart = Date.now() - masterElapsed;
@@ -403,7 +463,7 @@
     lbl.textContent = 'Carrera en progreso...';
     lbl.classList.add('running');
     document.getElementById('btn-start').disabled = true;
-    document.getElementById('btn-stop').disabled = false;
+    document.getElementById('btn-stop').disabled  = false;
     showToast('¡Carrera iniciada!');
     renderList();
   }
@@ -417,7 +477,7 @@
     lbl.textContent = 'Carrera detenida';
     lbl.classList.remove('running');
     document.getElementById('btn-start').disabled = false;
-    document.getElementById('btn-stop').disabled = true;
+    document.getElementById('btn-stop').disabled  = true;
     showToast('Carrera detenida');
     renderList();
   }
@@ -427,15 +487,16 @@
     masterElapsed = 0;
     competitors.forEach(c => { c.capturedTime = null; c.finished = false; });
     document.getElementById('master-display').textContent = '00:00.000';
-    document.getElementById('status-label').textContent = 'Listo para iniciar';
+    document.getElementById('status-label').textContent   = 'Listo para iniciar';
     renderList();
     updateStats();
     showToast('Cronómetro reiniciado');
   }
 
+  // ── COMPETIDORES ────────────────────────────────────
   function addCompetitor() {
     const input = document.getElementById('competitor-name');
-    const name = input.value.trim();
+    const name  = input.value.trim();
     if (!name) { showToast('⚠ Ingresa un nombre'); return; }
     competitors.push({ id: nextId++, name, capturedTime: null, finished: false });
     input.value = '';
@@ -449,7 +510,7 @@
     const c = competitors.find(x => x.id === id);
     if (!c || c.finished) return;
     c.capturedTime = masterElapsed;
-    c.finished = true;
+    c.finished     = true;
     flashCard(id);
     renderList();
     updateStats();
@@ -462,6 +523,7 @@
     updateStats();
   }
 
+  // ── HELPERS ─────────────────────────────────────────
   function getLeaderTime() {
     const fin = competitors.filter(c => c.finished);
     if (!fin.length) return null;
@@ -471,12 +533,13 @@
   function getSorted() {
     return [...competitors].sort((a, b) => {
       if (a.finished && !b.finished) return -1;
-      if (!a.finished && b.finished) return 1;
-      if (a.finished && b.finished) return a.capturedTime - b.capturedTime;
+      if (!a.finished && b.finished) return  1;
+      if (a.finished && b.finished)  return a.capturedTime - b.capturedTime;
       return a.id - b.id;
     });
   }
 
+  // ── RENDER ──────────────────────────────────────────
   function renderList() {
     const container = document.getElementById('competitor-list');
     if (!competitors.length) {
@@ -488,30 +551,46 @@
     }
 
     const leaderTime = getLeaderTime();
-    const sorted = getSorted();
+    const sorted     = getSorted();
 
     container.innerHTML = sorted.map((c, i) => {
-      const rank = i + 1;
-      const rankIcon = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+      const rank      = i + 1;
+      const rankIcon  = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
       const rankClass = rank <= 3 ? `rank-${rank}` : '';
 
-      let timeHTML, diffHTML, timeClass, diffClass, statusText, statusClass;
+      let timeHTML, diffHTML, diffPrevHTML, timeClass, diffClass, diffPrevClass, statusText, statusClass;
 
       if (c.finished) {
-        timeHTML = formatTime(c.capturedTime);
+        timeHTML  = formatTime(c.capturedTime);
         timeClass = rank === 1 ? 'best' : '';
-        const diff = leaderTime !== null ? c.capturedTime - leaderTime : 0;
-        diffHTML  = diff === 0 ? 'Líder' : formatDiff(diff);
-        diffClass = diff === 0 ? 'leader' : '';
-        statusText  = `Finalizado · Posición ${rank}`;
+
+        // Diferencia vs líder
+        const diffLeader = leaderTime !== null ? c.capturedTime - leaderTime : 0;
+        diffHTML  = diffLeader === 0 ? 'Líder' : formatDiff(diffLeader);
+        diffClass = diffLeader === 0 ? 'leader' : '';
+
+        // CAMBIO 2: Diferencia vs anterior (posición i-1 en sorted)
+        if (rank === 1) {
+          diffPrevHTML  = '—';
+          diffPrevClass = 'first';
+        } else {
+          const prev     = sorted[i - 1];
+          const diffPrev = prev && prev.finished ? c.capturedTime - prev.capturedTime : null;
+          diffPrevHTML  = diffPrev !== null ? formatDiff(diffPrev) : '—';
+          diffPrevClass = '';
+        }
+
+        statusText  = `Finalizado · Pos. ${rank}`;
         statusClass = '';
       } else {
-        timeHTML   = `<span id="live-${c.id}">${formatTime(masterElapsed)}</span>`;
-        timeClass  = 'live';
-        diffHTML   = raceRunning ? 'En pista' : '—';
-        diffClass  = '';
-        statusText  = raceRunning ? 'Corriendo...' : 'En espera';
-        statusClass = raceRunning ? 'running' : '';
+        timeHTML      = `<span id="live-${c.id}">${formatTime(masterElapsed)}</span>`;
+        timeClass     = 'live';
+        diffHTML      = raceRunning ? 'En pista' : '—';
+        diffClass     = '';
+        diffPrevHTML  = '—';
+        diffPrevClass = 'first';
+        statusText    = raceRunning ? 'Corriendo...' : 'En espera';
+        statusClass   = raceRunning ? 'running' : '';
       }
 
       return `
@@ -523,8 +602,11 @@
         </div>
         <div class="comp-time ${timeClass}">${timeHTML}</div>
         <div class="comp-diff ${diffClass}">${diffHTML}</div>
+        <div class="comp-diff-prev ${diffPrevClass}">${diffPrevHTML}</div>
         <div class="card-actions">
-          ${!c.finished ? `<button class="btn-capture" onclick="captureCompetitor(${c.id})" ${!raceRunning?'disabled':''}>🏁 Capturar</button>` : ''}
+          ${!c.finished
+            ? `<button class="btn-capture" onclick="captureCompetitor(${c.id})" ${!raceRunning ? 'disabled' : ''}>🏁 Capturar</button>`
+            : ''}
           <button class="btn-remove" onclick="removeCompetitor(${c.id})" title="Eliminar">✕</button>
         </div>
       </div>`;
@@ -548,7 +630,8 @@
     const lt = getLeaderTime();
     if (lt !== null) {
       const leader = competitors.find(c => c.capturedTime === lt);
-      document.getElementById('stat-leader').textContent = leader ? leader.name.split(' ')[0].substring(0,8) : '—';
+      document.getElementById('stat-leader').textContent = leader
+        ? leader.name.split(' ')[0].substring(0, 8) : '—';
     } else {
       document.getElementById('stat-leader').textContent = '—';
     }
@@ -558,6 +641,11 @@
   function flashCard(id) {
     const el = document.getElementById(`card-${id}`);
     if (el) { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 500); }
+  }
+
+  // CAMBIO 3: Función imprimir
+  function printResults() {
+    window.print();
   }
 
   let toastTimer;
