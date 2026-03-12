@@ -36,7 +36,7 @@ Sistema de cronometraje en tiempo real para competencias, construido con HTML, C
 ## Tecnologías
 
 - HTML5 / CSS3 / JavaScript ES6+ (sin dependencias externas)
-- Google Fonts (Orbitron + Rajdhani)
+- Poppins con fallback system-ui Arial para uso sin internet.
 - Mermaid.js (solo para diagramas UML)
 
 ---
